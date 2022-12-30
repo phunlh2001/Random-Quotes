@@ -10,6 +10,7 @@ function App() {
   useEffect(() => {
     fetch('http://api.quotable.io/random', {
       headers: {
+        'Accept': '*',
         'access-control-allow-origin': '*',
         'Content-type': 'application/json; charset=UTF-8',
       },
