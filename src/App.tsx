@@ -8,7 +8,12 @@ function App() {
   const [isClick, setIsClick] = useState(false)
 
   useEffect(() => {
-    fetch('http://api.quotable.io/random')
+    fetch('http://api.quotable.io/random', {
+      headers: {
+        'access-control-allow-origin': '*',
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
       .then((res) => res.json())
       .then((result) => {
         setAuthor(result.author)
