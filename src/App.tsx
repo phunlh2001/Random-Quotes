@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react'
+import Form from 'components/Form'
+import './App.css'
 
 function App() {
+  const [content, setContent] = useState('')
+  const [author, setAuthor] = useState('')
+  const [isClick, setIsClick] = useState(false)
+
+  useEffect(() => {
+    fetch('http://api.quotable.io/random')
+      .then((res) => res.json())
+      .then((result) => {
+        setAuthor(result.author)
+        setContent(result.content)
+      })
+      .catch((err) => console.log('fetch api failed:', err))
+  }, [isClick])
+
+  const handleClick = () => setIsClick(!isClick)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Form
+        author={author}
+        content={content}
+        title='Random Quote App'
+        handleClick={handleClick}
+      />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
